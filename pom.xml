@@ -29,6 +29,38 @@
 		</dependency>
 	</dependencies>
 	<build>
+		<resources>
+                        <resource>
+                                <directory>src/main/java/</directory>
+                                <excludes>
+                                        <exclude>*.svn</exclude>
+                                </excludes>
+                        </resource>
+                        <resource>
+                                <directory>src/test/java/</directory>
+                                <excludes>
+                                        <exclude>*.svn</exclude>
+                                </excludes>
+                        </resource>
+                        <resource>
+                                <directory>src/main/resources</directory>
+                                <excludes>
+                                        <exclude>.svn</exclude>
+                                </excludes>
+                                <includes>
+                                        <include>**/*.xml</include>
+                                        <include>**/*.yaml</include>
+                                </includes>
+                        </resource>
+                        <resource>
+                                <targetPath>META-INF</targetPath>
+                                <filtering>false</filtering>
+                                <directory>src/main/resources/META-INF</directory>
+                                <includes>
+                                        <include>**/*.tld</include>
+                                </includes>
+                        </resource>
+                </resources>
 		<plugins>
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
