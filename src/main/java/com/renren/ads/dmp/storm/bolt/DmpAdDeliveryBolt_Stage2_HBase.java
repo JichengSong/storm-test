@@ -53,7 +53,8 @@ public class DmpAdDeliveryBolt_Stage2_HBase extends BaseRichBolt {
 		Configuration cfg = HBaseConfiguration.create();
 		try {
 			this.table = new HTable(cfg, tableName);
-			//this.table.setAutoFlush(false);
+			this.table.setWriteBufferSize(1024*64);
+			this.table.setAutoFlush(false);
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

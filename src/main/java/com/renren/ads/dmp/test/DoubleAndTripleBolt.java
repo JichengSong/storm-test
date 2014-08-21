@@ -1,4 +1,4 @@
-package com.renren.storm.test;
+package com.renren.ads.dmp.test;
 
 import java.util.Map;
 

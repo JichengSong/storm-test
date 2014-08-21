@@ -1,55 +1,50 @@
-/**
- * 
- */
 package com.renren.ads.dmp.test;
 
-import com.alibaba.fastjson.JSON;
-import com.xiaonei.ads.dmp.kafka.model.DmpMessage;
-import com.xiaonei.ads.dmp.kafka.model.DmpOperation;
+import backtype.storm.Config;
+import backtype.storm.LocalCluster;
+import backtype.storm.StormSubmitter;
+import backtype.storm.generated.AlreadyAliveException;
+import backtype.storm.generated.InvalidTopologyException;
+import backtype.storm.generated.StormTopology;
+import backtype.storm.testing.TestWordSpout;
+import backtype.storm.topology.TopologyBuilder;
+import backtype.storm.utils.Utils;
 
-/**
- * @author jicheng.song
- * @since 2014年8月19日
- */
 public class Test {
 
 	/**
 	 * @param args
+	 * @throws InvalidTopologyException 
+	 * @throws AlreadyAliveException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws AlreadyAliveException, InvalidTopologyException {
 		// TODO Auto-generated method stub
-		// String source =
-		// "{\"dmpId\":\"258095212\",\"opt\":\"AD_DELIVERY\",\"crowndId\":328}\"";
 
-		System.out.println("begin.");
-
-		DmpMessage m1 = new DmpMessage();
-
-		m1.setOpt(DmpOperation.AD_DELIVERY);
-		m1.setCrowndId(243);
-		m1.setFeatures(null);
-		m1.setDmpId("dmp123");
-
-		try {
-			DmpMessage m2 = JSON.parseObject(JSON.toJSONString(m1)+"a",
-					DmpMessage.class);
-			
-			System.out.println("m2.toString=" + m2.toString());
-
-		} catch (com.alibaba.fastjson.JSONException e) {
-			e.printStackTrace();
-		}
-
-		// DmpMessage dmpMessage=(DmpMessage) JSON.parseObject(source,
-		// DmpMessage.class);
+		System.out.println("begin ");
+		TopologyBuilder builder = new TopologyBuilder(); 
+		//设置Spout
+		builder.setSpout("spout_01", new TestWordSpout(), 1); 
+		//设置Bolt
+		builder.setBolt("bolt_01", new ExclamationBolt(), 1)
+		        .shuffleGrouping("spout_01");
+		builder.setBolt("bolt_02", new ExclamationBolt(), 1)
+		        .shuffleGrouping("bolt_01");
 		//
-		// if(dmpMessage==null){
-		// System.out.println("dmpMessage is null ");
-		// System.exit(-1);
-		// }else{
-		// System.out.println("dmpMessage="+dmpMessage.toString());
-		// }
-		System.out.println("end.");
+		StormTopology topology = builder.createTopology();
+		Config conf = new Config();
+		
+		conf.setDebug(false); 
+		conf.setNumWorkers(8);
+		conf.setMaxSpoutPending(5000);
+		StormSubmitter.submitTopology("test01_topology", conf, topology);
+		
+		
+		//StormSubmitter.submitTopology("asdfasdf", conf, builder.createTopology());
+		Utils.sleep(1000);
+		// cluster.killTopology("test");
+		// cluster.shutdown();
+
+		System.out.println("end...");
 	}
 
 }

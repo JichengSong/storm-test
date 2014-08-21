@@ -63,19 +63,18 @@ public class DmpAdDeliveryBolt_Stage1 extends BaseRichBolt {
 		// 获取dmpid对应的id列表(userid,jebeid,deviceid等)
 		List<Identity> identityList = this.service.getListByDmpId(RowkeyUtils
 				.reverseHexString2Long(dmpMessage.getDmpId()));
-		// 发射给下一个bolt
-//		for (Identity identity : identityList) {
-//			//create 
-//			DmpMessage dm = new DmpMessage();
-//			dm.setDmpId(identity.code);
-//			dm.setCrowndId(dmpMessage.getCrowndId());
-//			dm.setFeatures(dmpMessage.getFeatures());
-//			dm.setOpt((DmpOperation) dmpMessage.getOpt());
-//			//emit
-//			this._collector.emit(new Values(dm));
-//		}
-		this._collector.emit(new Values(dmpMessage));
 
+		// 发射给下一个bolt
+		for (Identity identity : identityList) {
+			// create
+			DmpMessage dm = new DmpMessage();
+			dm.setDmpId(identity.code);
+			dm.setCrowndId(dmpMessage.getCrowndId());
+			dm.setFeatures(dmpMessage.getFeatures());
+			dm.setOpt((DmpOperation) dmpMessage.getOpt());
+			// emit
+			this._collector.emit(new Values(dm));
+		}
 	}
 
 	/*

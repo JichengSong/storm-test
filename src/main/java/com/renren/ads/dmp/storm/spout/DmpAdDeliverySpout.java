@@ -68,12 +68,13 @@ public class DmpAdDeliverySpout extends BaseRichSpout {
 	public void nextTuple() {
 		// TODO Auto-generated method stub
 		DmpMessage dmpMessage = this.consumer.getMessage();
-
+		//System.out.println("SPOUT:"+dmpMessage.toString());
 		// 如果dmpid在7日dau里,则发送给bolt处理.
 		if (redisDau.exists(dmpMessage.getDmpId())) {
 			this._collector.emit(new Values(dmpMessage));
 		}
 		//
+		//this._collector.emit(new Values(dmpMessage));
 	}
 
 	/*
