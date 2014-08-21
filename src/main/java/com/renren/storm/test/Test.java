@@ -33,11 +33,10 @@ public class Test {
 		StormTopology topology = builder.createTopology();
 		Config conf = new Config();
 		
-		conf.setDebug(false);
-		conf.setNumWorkers(2);
+		conf.setDebug(false); 
 		conf.setNumWorkers(8);
 		conf.setMaxSpoutPending(5000);
-		StormSubmitter.submitTopology("my_second_topology", conf, topology);
+		StormSubmitter.submitTopology("test01_topology", conf, topology);
 		
 		
 		//StormSubmitter.submitTopology("asdfasdf", conf, builder.createTopology());

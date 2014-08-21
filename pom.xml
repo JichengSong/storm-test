@@ -15,6 +15,23 @@
 	</properties>
 
 	<dependencies>
+                <dependency>
+                        <groupId>com.xiaonei.ads.dmp</groupId>
+                        <artifactId>dmp-kafka-api</artifactId>
+                        <version>1.0-SNAPSHOT</version>
+                        <scope>compile</scope>
+                </dependency>
+                <dependency>
+                        <groupId>org.apache.hbase</groupId>
+                        <artifactId>hbase</artifactId>
+                        <version>0.94.1</version>
+                </dependency>
+                <dependency>
+                        <groupId>org.apache.hadoop</groupId>
+                        <artifactId>hadoop-core</artifactId>
+                        <version>1.0.4</version>
+                </dependency>
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -25,8 +42,51 @@
 			<groupId>org.apache.storm</groupId>
 			<artifactId>storm-core</artifactId>
 			<version>0.9.1-incubating</version>
-			<scope>compile</scope>
+			<!--<scope>compile</scope>-->
+			<scope>provided</scope>
 		</dependency>
+		<dependency>
+                        <groupId>com.alibaba</groupId>
+                        <artifactId>fastjson</artifactId>
+                        <version>1.1.31</version>
+                </dependency>
+		<dependency>
+                        <groupId>org.scala-lang</groupId>
+                        <artifactId>scala-library</artifactId>
+                        <version>2.8.0</version>
+                </dependency>
+
+		<dependency>
+                        <groupId>org.apache.kafka</groupId>
+                        <!--<artifactId>kafka_2.8.0</artifactId> -->
+                        <artifactId>kafka</artifactId>
+                        <!--<version>0.8.0</version> -->
+                        <version>0.7.2-ugc</version>
+                </dependency>
+		<dependency>
+                        <groupId>com.renren</groupId>
+                        <artifactId>renren-ads-dmp-biz-api</artifactId>
+                        <version>1.0-SNAPSHOT</version>
+                </dependency>
+                <dependency>
+                        <groupId>com.renren.ad</groupId>
+                        <artifactId>RedisCluster</artifactId>
+                        <version>2.1.0.0-SNAPSHOT</version>
+                </dependency>
+<dependency>
+  <groupId>org.apache.zookeeper</groupId>
+  <artifactId>zookeeper</artifactId>
+  <version>3.3.3</version>
+</dependency>
+		<dependency>
+                        <groupId>com.101tec</groupId>
+                        <artifactId>zkclient</artifactId>
+                        <version>0.3</version>
+                </dependency>
+
+
+
+
 	</dependencies>
 	<build>
 		<resources>
